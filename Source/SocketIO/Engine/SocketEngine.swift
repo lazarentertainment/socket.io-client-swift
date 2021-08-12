@@ -250,7 +250,7 @@ open class SocketEngine:
             return
         }
 
-        var reqPolling = URLRequest(url: urlPolling, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 60.0)
+        var reqPolling = URLRequest(url: urlPolling, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 90.0)
 
         addHeaders(to: &reqPolling)
         doLongPoll(for: reqPolling)
