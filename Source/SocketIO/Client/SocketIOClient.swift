@@ -200,7 +200,7 @@ open class SocketIOClient: NSObject, SocketIOClientSpec {
     ///
     /// This will cause the socket to leave the namespace it is associated to, as well as remove itself from the
     /// `manager`.
-    open func disconnect() {
+    @objc open func disconnect() {
         DefaultSocketLogger.Logger.log("Closing socket", type: logType)
 
         leaveNamespace()
