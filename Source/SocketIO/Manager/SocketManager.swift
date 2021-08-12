@@ -593,7 +593,7 @@ open class SocketManager: NSObject, SocketManagerSpec, SocketParsable, SocketDat
     ///
     /// - parameter nsp: The namespace for the socket.
     /// - returns: A `SocketIOClient` for the given namespace.
-    open func socket(forNamespace nsp: String) -> SocketIOClient {
+    @objc open func socket(forNamespace nsp: String) -> SocketIOClient {
         assert(nsp.hasPrefix("/"), "forNamespace must have a leading /")
 
         if let socket = nsps[nsp] {
