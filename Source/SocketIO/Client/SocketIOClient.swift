@@ -394,6 +394,7 @@ open class SocketIOClient: NSObject, SocketIOClientSpec {
     }
 
     /// Call when you wish to leave a namespace and disconnect this socket.
+	@objc
     open func leaveNamespace() {
         manager?.disconnectSocket(self)
     }
@@ -401,6 +402,7 @@ open class SocketIOClient: NSObject, SocketIOClientSpec {
     /// Joins `nsp`. You shouldn't need to call this directly, instead call `connect`.
     ///
     /// - parameter withPayload: An optional payload sent on connect
+	@objc
     open func joinNamespace(withPayload payload: [String: Any]? = nil) {
         DefaultSocketLogger.Logger.log("Joining namespace \(nsp)", type: logType)
 
@@ -509,6 +511,7 @@ open class SocketIOClient: NSObject, SocketIOClientSpec {
     /// Adds a handler that will be called on every event.
     ///
     /// - parameter handler: The callback that will execute whenever an event is received.
+	@objc
     open func onAny(_ handler: @escaping (SocketAnyEvent) -> ()) {
         anyHandler = handler
     }
@@ -528,6 +531,7 @@ open class SocketIOClient: NSObject, SocketIOClientSpec {
     /// Called when the manager detects a broken connection, or when a manual reconnect is triggered.
     ///
     /// - parameter reason: The reason this socket is reconnecting.
+	@objc
     open func setReconnecting(reason: String) {
         status = .connecting
 
