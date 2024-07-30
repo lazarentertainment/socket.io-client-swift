@@ -113,9 +113,6 @@ open class SocketIOClient: NSObject, SocketIOClientSpec {
     open func connect(withPayload payload: [String: Any]? = nil) {
         connect(withPayload: payload, timeoutAfter: 0, withHandler: nil)
     }
-	@objc open func connect() {
-		connect(withPayload: nil)
-	}
 
     /// Connect to the server. If we aren't connected after `timeoutAfter` seconds, then `withHandler` is called.
     ///
@@ -200,7 +197,7 @@ open class SocketIOClient: NSObject, SocketIOClientSpec {
     ///
     /// This will cause the socket to leave the namespace it is associated to, as well as remove itself from the
     /// `manager`.
-    @objc open func disconnect() {
+    open func disconnect() {
         DefaultSocketLogger.Logger.log("Closing socket", type: logType)
 
         leaveNamespace()
@@ -217,9 +214,7 @@ open class SocketIOClient: NSObject, SocketIOClientSpec {
     open func emit(_ event: String, _ items: SocketData..., completion: (() -> ())? = nil)  {
         emit(event, with: items, completion: completion)
     }
-    @objc open func emit(_ event: String, with items: Any)  {
-        emit(event, with: items as! [SocketData], completion: nil)
-    }
+    
     /// Send an event to the server, with optional data items and optional write completion handler.
     ///
     /// If an error occurs trying to transform `items` into their socket representation, a `SocketClientEvent.error`
@@ -394,7 +389,6 @@ open class SocketIOClient: NSObject, SocketIOClientSpec {
     }
 
     /// Call when you wish to leave a namespace and disconnect this socket.
-	@objc
     open func leaveNamespace() {
         manager?.disconnectSocket(self)
     }
@@ -402,7 +396,6 @@ open class SocketIOClient: NSObject, SocketIOClientSpec {
     /// Joins `nsp`. You shouldn't need to call this directly, instead call `connect`.
     ///
     /// - parameter withPayload: An optional payload sent on connect
-	@objc
     open func joinNamespace(withPayload payload: [String: Any]? = nil) {
         DefaultSocketLogger.Logger.log("Joining namespace \(nsp)", type: logType)
 
@@ -448,7 +441,6 @@ open class SocketIOClient: NSObject, SocketIOClientSpec {
     /// - parameter callback: The callback that will execute when this event is received.
     /// - returns: A unique id for the handler that can be used to remove it.
     @discardableResult
-	@objc
     open func on(_ event: String, callback: @escaping NormalCallback) -> UUID {
         DefaultSocketLogger.Logger.log("Adding handler for event: \(event)", type: logType)
 
@@ -511,7 +503,6 @@ open class SocketIOClient: NSObject, SocketIOClientSpec {
     /// Adds a handler that will be called on every event.
     ///
     /// - parameter handler: The callback that will execute whenever an event is received.
-	@objc
     open func onAny(_ handler: @escaping (SocketAnyEvent) -> ()) {
         anyHandler = handler
     }
@@ -531,7 +522,6 @@ open class SocketIOClient: NSObject, SocketIOClientSpec {
     /// Called when the manager detects a broken connection, or when a manual reconnect is triggered.
     ///
     /// - parameter reason: The reason this socket is reconnecting.
-	@objc
     open func setReconnecting(reason: String) {
         status = .connecting
 

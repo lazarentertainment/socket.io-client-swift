@@ -51,7 +51,7 @@ open class SocketManager: NSObject, SocketManagerSpec, SocketParsable, SocketDat
     // MARK: Properties
 
     /// The socket associated with the default namespace ("/").
-    @objc public var defaultSocket: SocketIOClient {
+    public var defaultSocket: SocketIOClient {
         return socket(forNamespace: "/")
     }
 
@@ -235,7 +235,6 @@ open class SocketManager: NSObject, SocketManagerSpec, SocketParsable, SocketDat
     }
 
     /// Disconnects the manager and all associated sockets.
-	@objc
     open func disconnect() {
         DefaultSocketLogger.Logger.log("Manager closing", type: SocketManager.logType)
 
@@ -593,7 +592,7 @@ open class SocketManager: NSObject, SocketManagerSpec, SocketParsable, SocketDat
     ///
     /// - parameter nsp: The namespace for the socket.
     /// - returns: A `SocketIOClient` for the given namespace.
-    @objc open func socket(forNamespace nsp: String) -> SocketIOClient {
+    open func socket(forNamespace nsp: String) -> SocketIOClient {
         assert(nsp.hasPrefix("/"), "forNamespace must have a leading /")
 
         if let socket = nsps[nsp] {
